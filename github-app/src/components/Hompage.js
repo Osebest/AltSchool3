@@ -21,6 +21,7 @@ export const Hompage = () => {
   let indexOfFirstPost = indexOfLastPost - postsPerPage;
 
   
+  
 
   // Change Page
   const paginate = (pageNumber, data) => {
