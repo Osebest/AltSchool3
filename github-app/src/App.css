@@ -6,3 +6,11 @@ body {
 .link{
   text-decoration: none;
 }
+.content{
+  margin-top: 120px;
+  margin-bottom: 200px;
+}
+
+.imgL{
+  width: 100%;
+}
