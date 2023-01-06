@@ -63,7 +63,7 @@ export const Userspage = () => {
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 2500);
+    }, 3000);
     if (posts.length < 1) {
       setContent(
         <div className="container">
