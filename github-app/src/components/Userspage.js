@@ -3,6 +3,7 @@ import { StateContext } from "../Context/Context";
 import { paginate } from "./paginate";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { Helmet } from "react-helmet-async";
 
 export const Userspage = () => {
   const { posts, setPosts } = useContext(StateContext);
@@ -102,6 +103,11 @@ export const Userspage = () => {
 
   return (
     <div className="container d-flex flex-column align-items-center content">
+      <Helmet>
+        <title>Users</title>
+        <meta name="description" content="Check out the repositories of your favorite software engineers"/>
+        <link rel="canonical" href={`/user/:${name}`} />
+      </Helmet>
       <h2>User Profile</h2>
       {loading ? (
         <div className="d-flex justify-content-center align-items-center">
