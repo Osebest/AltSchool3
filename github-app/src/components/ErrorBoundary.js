@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { NavLink } from "react-router-dom";
 
 class ErrorBoundary extends Component {
   constructor(props) {
@@ -14,10 +15,17 @@ class ErrorBoundary extends Component {
   render() {
     if (this.state.hasError) {
       // You can render any custom fallback UI
-      return <h1>Something went wrong.</h1>;
+      return (
+        <>
+          <h1>Something went wrong.</h1>
+          <NavLink to={"/"} className="btn btn-primary">
+            Go Home
+          </NavLink>
+        </>
+      );
     }
 
-    return this.props.children; 
+    return this.props.children;
   }
 }
 

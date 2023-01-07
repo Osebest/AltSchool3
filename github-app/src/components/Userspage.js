@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Helmet } from "react-helmet-async";
 
-export const Userspage = () => {
+const Userspage = () => {
   const { posts, setPosts } = useContext(StateContext);
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
@@ -58,12 +58,12 @@ export const Userspage = () => {
     axios.get(`https://api.github.com/users/${name}`).then((response) => {
         setUser(response.data);
       });
-  }, [name]);
+  }, [name, setPosts]);
 
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 3000);
+    }, 2500);
     if (posts.length < 1) {
       setContent(
         <div className="container">
@@ -144,3 +144,5 @@ export const Userspage = () => {
     </div>
   );
 };
+
+export default Userspage;

@@ -12,7 +12,7 @@ export default function Homepage() {
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 3000);
+    }, 2500);
     axios.get(`https://api.github.com/users/osebest`).then((response) => {
       setOse(response.data);
     });
@@ -20,12 +20,12 @@ export default function Homepage() {
       setPosts(response.data);
       paginate(1, response.data, setContent);
     });
-  }, []);
+  }, [setPosts]);
 
   return (
     <div className="content container">
       {loading ? (
-        <div className="d-flex justify-content-center align-items-center">
+        <div className="d-flex container justify-content-center align-items-center">
           <img
             src="https://usagif.com/wp-content/uploads/loading-10.gif"
             alt=""

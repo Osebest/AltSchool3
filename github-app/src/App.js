@@ -6,13 +6,14 @@ import {
   Routes,
   useLocation,
 } from "react-router-dom";
-import { Userspage } from "./components/Userspage";
 import Error from "./Error";
 import { StateContext } from "./Context/Context";
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import PostDetails from "./components/PostDetails";
-import Homepage from "./components/Homepage";
 import axios from "axios";
+
+const Homepage = lazy(() => import("./components/Homepage"));
+const Userspage = lazy(() => import("./components/Userspage"));
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -22,21 +23,18 @@ function App() {
   const [error, setError] = useState(false);
   const navigate = useNavigate();
   const route = useLocation();
-  
+
   useEffect(() => {
     if (route.pathname === "/") {
       setHome(true);
-    }else(
-      setHome(false)
-    )
-    
-    if(route.pathname==="/error"){
+    } else setHome(false);
+
+    if (route.pathname === "/error") {
       setError(true);
-    }else{
+    } else {
       setError(false);
     }
-  }, [route])
-  
+  }, [route]);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -83,12 +81,16 @@ function App() {
               <ul className="navbar-nav w-100 me-auto mb-2 mb-md-0">
                 <li className="nav-item px-3">
                   <NavLink to={"/"}>
-                    <span className={`nav-link fs-5 ${home?'active':''}`}>Home</span>
+                    <span className={`nav-link fs-5 ${home ? "active" : ""}`}>
+                      Home
+                    </span>
                   </NavLink>
                 </li>
                 <li className="nav-item px-3">
                   <NavLink to={"/error"}>
-                    <span className={`nav-link fs-5 ${error?'active':''}`}>Error</span>
+                    <span className={`nav-link fs-5 ${error ? "active" : ""}`}>
+                      Error
+                    </span>
                   </NavLink>
                 </li>
               </ul>
@@ -109,12 +111,14 @@ function App() {
           </div>
         </nav>
       </header>
-      <Routes>
-        <Route path="/" element={<Homepage />} />
-        <Route path="/user/:name" element={<Userspage />} />
-        <Route path="/repo/:id" element={<PostDetails posts={posts} />} />
-        <Route path="*" element={<Error />} />
-      </Routes>
+      <Suspense fallback={null}>
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/user/:name" element={<Userspage />} />
+          <Route path="/repo/:id" element={<PostDetails posts={posts} />} />
+          <Route path="*" element={<Error />} />
+        </Routes>
+      </Suspense>
     </StateContext.Provider>
   );
 }
